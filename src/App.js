@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import CoffeHousePage from "./components/pages/CoffeHouse";
+import OurCoffeePage from "./components/pages/OurCoffee";
+import YourPleasurePage from "./components/pages/YourPleasure";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [openedPage, setOpenedPage] = useState("Coffee house");
+
+  const setPage = (pageName) => {
+    setOpenedPage(pageName);
+  };
+
+  const visibleContent = () => {
+    if (openedPage === "Coffee house") {
+      return <CoffeHousePage setPage={setPage} />;
+    }
+    return openedPage === "Our coffee" ? (
+      <OurCoffeePage setPage={setPage} />
+    ) : (
+      <YourPleasurePage setPage={setPage} />
+    );
+  };
+
+  return visibleContent();
 }
 
 export default App;
